@@ -1,5 +1,5 @@
 {
-  "name": "pr-title-action",
+  "name": "action-pr-title",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
