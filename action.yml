@@ -1,0 +1,5 @@
+name: 'Validates PR titles against Submitty guidelines'
+description: 'Validates PR titles against Submitty guidelines'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
