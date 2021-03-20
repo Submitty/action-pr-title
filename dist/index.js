@@ -116,7 +116,7 @@ function checkTitle(fullTitle) {
         throw new Error(`Too short a message, expected at least ${minMessageLength} characters, got ${message.length} characters`);
     }
     if (message.length > maxMessageLength) {
-        throw new Error(`Too long a message, expected at least ${maxMessageLength} characters, got ${message.length} characters`);
+        throw new Error(`Too long a message, expected at most ${maxMessageLength} characters, got ${message.length} characters`);
     }
     console.log(`[${type}${module ? `:${module}` : ''}] ${message}`);
 }
