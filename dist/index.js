@@ -98,7 +98,7 @@ function checkTitle(fullTitle) {
         throw new Error(`Invalid title format, must start with ${hasSysadminTag ? sysadminTag : ''}[<TYPE>:<MODULE>] and have space before description`);
     }
     const [_, type, module, message] = title.match(/^\[([a-zA-Z\/]+)(?::([a-zA-Z\/]+))?\] (.*)/);
-    const isDependency = type === 'Dependency' || 'DevDependency';
+    const isDependency = type === 'Dependency' || type === 'DevDependency';
     const minMessageLength = 2;
     const maxMessageLength = isDependency ? 70 : 40;
     if (!allowedTypes.includes(type)) {

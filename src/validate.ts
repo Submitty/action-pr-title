@@ -45,7 +45,7 @@ export function checkTitle(fullTitle: string) {
 
   const [_, type, module, message] = title.match(/^\[([a-zA-Z\/]+)(?::([a-zA-Z\/]+))?\] (.*)/) as RegExpMatchArray;
 
-  const isDependency = type === 'Dependency' || 'DevDependency';
+  const isDependency = type === 'Dependency' || type === 'DevDependency';
   const minMessageLength = 2;
   const maxMessageLength = isDependency ? 70 : 40;
 
