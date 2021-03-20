@@ -106,7 +106,7 @@ function checkTitle(fullTitle) {
     }
     if (isDependency) {
         if (module !== undefined) {
-            throw new Error(`No allowed module for ${type}. Got [${type}:${module}].`);
+            throw new Error(`No allowed module for ${type}, expected [${type}]. Got [${type}:${module}].`);
         }
     }
     else if (!allowedModules.includes(module)) {

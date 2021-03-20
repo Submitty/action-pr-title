@@ -55,7 +55,7 @@ export function checkTitle(fullTitle: string) {
 
   if (isDependency) {
     if (module !== undefined) {
-      throw new Error(`No allowed module for ${type}. Got [${type}:${module}].`);
+      throw new Error(`No allowed module for ${type}, expected [${type}]. Got [${type}:${module}].`);
     }
   } else if (!allowedModules.includes(module)) {
     throw new Error(`Invalid module, expected one of ${allowedModules.join(', ')}. Got ${module}.`);
