@@ -1,10 +1,10 @@
-import * as core from '@actions/core';
-import * as github from '@actions/github';
-import { checkTitle } from './validate';
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+import { checkTitle } from "./validate";
 
-export function run() {
+export function run(): void {
   if (!github.context.payload.pull_request) {
-    core.setFailed('This action can only be run on pull requests');
+    core.setFailed("This action can only be run on pull requests");
     return;
   }
   try {
