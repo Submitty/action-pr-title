@@ -1,6 +1,8 @@
 # action-pr-title
 
-GitHub action that validates PR titles meets our guidelines.
+[![Test](https://github.com/Submitty/action-pr-title/actions/workflows/test.yml/badge.svg)](https://github.com/Submitty/action-pr-title/actions/workflows/test.yml)
+
+GitHub action that validates PR titles meets [our title guidelines](https://submitty.org/developer/how_to_contribute#how-to-make-a-pull-request-pr-to-submitty).
 
 ## Usage
 
