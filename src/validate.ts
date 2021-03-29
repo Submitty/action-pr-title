@@ -41,7 +41,7 @@ export function checkTitle(fullTitle: string): true {
     }
   }
 
-  if (!/^\[[a-zA-Z/]+(?::[a-zA-Z]+)?\] /.test(title)) {
+  if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
     throw new Error(
       `Invalid title format, must start with ${
         hasSysadminTag ? sysadminTag : ""
@@ -49,31 +49,35 @@ export function checkTitle(fullTitle: string): true {
     );
   }
 
+  const errors = [];
+
   const [
     _,
     type,
     module,
     message,
-  ] = /^\[([a-zA-Z/]+)(?::([a-zA-Z]+))?\] (.*)/.exec(title) as RegExpMatchArray;
+  ] = /^\[([a-zA-Z0-9\\/]+)(?::([a-zA-Z0-9\\/]+))?\] (.*)/.exec(
+    title
+  ) as RegExpMatchArray;
 
   const isDependency = type === "Dependency" || type === "DevDependency";
   const minMessageLength = 2;
   const maxMessageLength = isDependency ? 70 : 40;
 
   if (!allowedTypes.includes(type)) {
-    throw new Error(
+    errors.push(
       `Invalid type, expected one of ${allowedTypes.join(", ")}. Got ${type}.`
     );
   }
 
   if (isDependency) {
     if (module !== undefined) {
-      throw new Error(
+      errors.push(
         `No allowed module for ${type}, expected [${type}]. Got [${type}:${module}].`
       );
     }
   } else if (!allowedModules.includes(module)) {
-    throw new Error(
+    errors.push(
       `Invalid module, expected one of ${allowedModules.join(
         ", "
       )}. Got ${module}.`
@@ -81,13 +85,21 @@ export function checkTitle(fullTitle: string): true {
   }
 
   if (message.length < minMessageLength) {
-    throw new Error(
+    errors.push(
       `Too short a message, expected at least ${minMessageLength} characters, got ${message.length} characters.`
     );
   }
   if (message.length > maxMessageLength) {
-    throw new Error(
+    errors.push(
       `Too long a message, expected at most ${maxMessageLength} characters, got ${message.length} characters.`
+    );
+  }
+
+  if (errors.length > 0) {
+    throw new Error(
+      `Errors detected in title:\n${errors
+        .map((str) => `  - ${str}`)
+        .join("\n")}`
     );
   }
 
