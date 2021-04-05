@@ -94,29 +94,35 @@ function checkTitle(fullTitle) {
             throw new Error(`There should not be a space between ${sysadminTag} and [<TYPE>:<MODULE>].`);
         }
     }
-    if (!/^\[[a-zA-Z/]+(?::[a-zA-Z]+)?\] /.test(title)) {
+    if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
         throw new Error(`Invalid title format, must start with ${hasSysadminTag ? sysadminTag : ""}[<TYPE>:<MODULE>] and have space before description.`);
     }
-    const [_, type, module, message,] = /^\[([a-zA-Z/]+)(?::([a-zA-Z]+))?\] (.*)/.exec(title);
+    const errors = [];
+    const [_, type, module, message,] = /^\[([a-zA-Z0-9\\/]+)(?::([a-zA-Z0-9\\/]+))?\] (.*)/.exec(title);
     const isDependency = type === "Dependency" || type === "DevDependency";
     const minMessageLength = 2;
     const maxMessageLength = isDependency ? 70 : 40;
     if (!allowedTypes.includes(type)) {
-        throw new Error(`Invalid type, expected one of ${allowedTypes.join(", ")}. Got ${type}.`);
+        errors.push(`Invalid type, expected one of ${allowedTypes.join(", ")}. Got ${type}.`);
     }
     if (isDependency) {
         if (module !== undefined) {
-            throw new Error(`No allowed module for ${type}, expected [${type}]. Got [${type}:${module}].`);
+            errors.push(`No allowed module for ${type}, expected [${type}]. Got [${type}:${module}].`);
         }
     }
     else if (!allowedModules.includes(module)) {
-        throw new Error(`Invalid module, expected one of ${allowedModules.join(", ")}. Got ${module}.`);
+        errors.push(`Invalid module, expected one of ${allowedModules.join(", ")}. Got ${module}.`);
     }
     if (message.length < minMessageLength) {
-        throw new Error(`Too short a message, expected at least ${minMessageLength} characters, got ${message.length} characters.`);
+        errors.push(`Too short a message, expected at least ${minMessageLength} characters, got ${message.length} characters.`);
     }
     if (message.length > maxMessageLength) {
-        throw new Error(`Too long a message, expected at most ${maxMessageLength} characters, got ${message.length} characters.`);
+        errors.push(`Too long a message, expected at most ${maxMessageLength} characters, got ${message.length} characters.`);
+    }
+    if (errors.length > 0) {
+        throw new Error(`Errors detected in title:\n${errors
+            .map((str) => `  - ${str}`)
+            .join("\n")}`);
     }
     return true;
 }
