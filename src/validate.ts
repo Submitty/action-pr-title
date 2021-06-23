@@ -1,4 +1,5 @@
 const sysadminTag = "[SYSADMIN ACTION]";
+const securityTag = "[SECURITY]";
 const allowedTypes = [
   "Bugfix",
   "Feature",
@@ -30,6 +31,7 @@ const allowedModules = [
 export function checkTitle(fullTitle: string): true {
   let title = fullTitle;
   let hasSysadminTag = false;
+  let hasSecurityTag = false;
 
   if (title.startsWith(sysadminTag)) {
     hasSysadminTag = true;
@@ -37,6 +39,16 @@ export function checkTitle(fullTitle: string): true {
     if (title.startsWith(" ")) {
       throw new Error(
         `There should not be a space between ${sysadminTag} and [<TYPE>:<MODULE>].`
+      );
+    }
+  }
+
+  if (title.startsWith(securityTag)) {
+    hasSecurityTag = true;
+    title = title.substring(securityTag.length);
+    if (title.startsWith(" ")) {
+      throw new Error(
+        `There should not be a space between ${securityTag} and [<TYPE>:<MODULE>].`
       );
     }
   }
