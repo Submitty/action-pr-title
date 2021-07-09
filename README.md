@@ -23,3 +23,28 @@ jobs:
     steps:
       - uses: submitty/action-pr-title@master
 ```
+
+## Development
+
+### Requirements:
+
+* NodeJS 12+
+
+### Setup
+
+```bash
+npm install
+```
+
+### Contributing
+
+For new code, you will need to:
+
+1. Write the code
+1. Lint the code (`npm run lint`) and test it (`npm run test`)
+
+After you're satisfied with the changes you've made, you will want to finally update the files under `dist/` with your change
+by running `npm run package`. Make sure to commit these changed files, as these are the files that are used when people utilize
+this action!
+
+With that done, create a PR!
