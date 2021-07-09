@@ -12,6 +12,8 @@ describe("validate", () => {
         "[Bugfix:SubminiPolls] xxxx",
         "[Feature:HelpQueue] xxxx",
         "[SYSADMIN ACTION][Refactor:Autograding] xxxx",
+        "[SECURITY][Bugfix:Submission] Some security hole",
+        "[SYSADMIN ACTION][SECURITY][Bugfix:Submission] xxxx",
         "[DevDependency] xxxx",
         "[Dependency] xxxx",
         "[Bugfix:Submission] 0123456789012345678901234567890123456789",
@@ -33,6 +35,30 @@ describe("validate", () => {
           [
             "[SYSADMINACTION][Refactor:Autograding] xxxx",
             "Invalid title format, must start with [<TYPE>:<MODULE>] and have space before description.",
+          ],
+          [
+            "[SYSADMIN ACTION] [Refactor:Submission] test",
+            "There should not be a space following [SYSADMIN ACTION].",
+          ],
+          [
+            "[SYSADMIN ACTION][Refactor:Autograding]foo",
+            "Invalid title format, must start with [SYSADMIN ACTION][<TYPE>:<MODULE>] and have space before description.",
+          ],
+          [
+            "[SECURITY] [Refactor:Submission] test",
+            "There should not be a space following [SECURITY].",
+          ],
+          [
+            "[SECURITY][Refactor:Autograding]foo",
+            "Invalid title format, must start with [SECURITY][<TYPE>:<MODULE>] and have space before description.",
+          ],
+          [
+            "[SYSADMIN ACTION][SECURITY][Refactor:Autograding]foo",
+            "Invalid title format, must start with [SYSADMIN ACTION][SECURITY][<TYPE>:<MODULE>] and have space before description.",
+          ],
+          [
+            "[SECURITY][SYSADMIN ACTION][Refactor:Autograding] foo",
+            "Invalid title format, must start with [SECURITY][<TYPE>:<MODULE>] and have space before description.",
           ],
         ].forEach(([value, expectedException]) => {
           it(`checkTitle should throw: ${value}`, () => {

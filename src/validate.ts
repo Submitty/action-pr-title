@@ -37,9 +37,7 @@ export function checkTitle(fullTitle: string): true {
     hasSysadminTag = true;
     title = title.substring(sysadminTag.length);
     if (title.startsWith(" ")) {
-      throw new Error(
-        `There should not be a space between ${sysadminTag} and [<TYPE>:<MODULE>].`
-      );
+      throw new Error(`There should not be a space following ${sysadminTag}.`);
     }
   }
 
@@ -47,9 +45,7 @@ export function checkTitle(fullTitle: string): true {
     hasSecurityTag = true;
     title = title.substring(securityTag.length);
     if (title.startsWith(" ")) {
-      throw new Error(
-        `There should not be a space between ${securityTag} and [<TYPE>:<MODULE>].`
-      );
+      throw new Error(`There should not be a space following ${securityTag}.`);
     }
   }
 
@@ -57,6 +53,8 @@ export function checkTitle(fullTitle: string): true {
     throw new Error(
       `Invalid title format, must start with ${
         hasSysadminTag ? sysadminTag : ""
+      }${
+        hasSecurityTag ? securityTag : ""
       }[<TYPE>:<MODULE>] and have space before description.`
     );
   }
