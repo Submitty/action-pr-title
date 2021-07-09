@@ -57,6 +57,7 @@ run();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.checkTitle = void 0;
 const sysadminTag = "[SYSADMIN ACTION]";
+const securityTag = "[SECURITY]";
 const allowedTypes = [
     "Bugfix",
     "Feature",
@@ -87,15 +88,23 @@ const allowedModules = [
 function checkTitle(fullTitle) {
     let title = fullTitle;
     let hasSysadminTag = false;
+    let hasSecurityTag = false;
     if (title.startsWith(sysadminTag)) {
         hasSysadminTag = true;
         title = title.substring(sysadminTag.length);
         if (title.startsWith(" ")) {
-            throw new Error(`There should not be a space between ${sysadminTag} and [<TYPE>:<MODULE>].`);
+            throw new Error(`There should not be a space following ${sysadminTag}.`);
+        }
+    }
+    if (title.startsWith(securityTag)) {
+        hasSecurityTag = true;
+        title = title.substring(securityTag.length);
+        if (title.startsWith(" ")) {
+            throw new Error(`There should not be a space following ${securityTag}.`);
         }
     }
     if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
-        throw new Error(`Invalid title format, must start with ${hasSysadminTag ? sysadminTag : ""}[<TYPE>:<MODULE>] and have space before description.`);
+        throw new Error(`Invalid title format, must start with ${hasSysadminTag ? sysadminTag : ""}${hasSecurityTag ? securityTag : ""}[<TYPE>:<MODULE>] and have space before description.`);
     }
     const errors = [];
     const [_, type, module, message,] = /^\[([a-zA-Z0-9\\/]+)(?::([a-zA-Z0-9\\/]+))?\] (.*)/.exec(title);
