@@ -103,6 +103,9 @@ function checkTitle(fullTitle) {
             throw new Error(`There should not be a space following ${securityTag}.`);
         }
     }
+    if (/^\[[a-zA-Z0-9\\/]+:[ ]+[a-zA-Z0-9\\/]+?\]/.test(title)) {
+        throw new Error("Unexpected space between <TYPE> and <MODULE> (e.g. [<TYPE>: <MODULE>]), there should be no space (e.g. [<TYPE>:<MODULE>]).");
+    }
     if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
         throw new Error(`Invalid title format, must start with ${hasSysadminTag ? sysadminTag : ""}${hasSecurityTag ? securityTag : ""}[<TYPE>:<MODULE>] and have space before description.`);
     }

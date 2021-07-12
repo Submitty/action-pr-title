@@ -49,6 +49,12 @@ export function checkTitle(fullTitle: string): true {
     }
   }
 
+  if (/^\[[a-zA-Z0-9\\/]+:[ ]+[a-zA-Z0-9\\/]+?\]/.test(title)) {
+    throw new Error(
+      "Unexpected space between <TYPE> and <MODULE> (e.g. [<TYPE>: <MODULE>]), there should be no space (e.g. [<TYPE>:<MODULE>])."
+    );
+  }
+
   if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
     throw new Error(
       `Invalid title format, must start with ${

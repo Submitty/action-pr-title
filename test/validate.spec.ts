@@ -53,6 +53,10 @@ describe("validate", () => {
             "Invalid title format, must start with [SECURITY][<TYPE>:<MODULE>] and have space before description.",
           ],
           [
+            "[Bugfix: Submission] xxx",
+            "Unexpected space between <TYPE> and <MODULE> (e.g. [<TYPE>: <MODULE>]), there should be no space (e.g. [<TYPE>:<MODULE>]).",
+          ],
+          [
             "[SYSADMIN ACTION][SECURITY][Refactor:Autograding]foo",
             "Invalid title format, must start with [SYSADMIN ACTION][SECURITY][<TYPE>:<MODULE>] and have space before description.",
           ],
