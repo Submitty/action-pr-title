@@ -21,7 +21,7 @@ jobs:
   title-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: submitty/action-pr-title@master
+      - uses: submitty/action-pr-title@main
 ```
 
 ## Development
