@@ -117,7 +117,7 @@ describe("validate", () => {
           )
         ).to.throw(`Errors detected in title:
   - Invalid type, expected one of Bugfix, Feature, Refactor, Testing, Documentation, VPAT, UI/UX, Dependency, DevDependency. Got Fake.
-  - Invalid module, expected one of Submission, Autograding, Forum, Notifications, TAGrading, InstructorUI, SubminiPolls, HelpQueue, CourseMaterials, Plagiarism, RainbowGrades, System, Developer, API. Got Error.
+  - Invalid module, expected one of Submission, Autograding, Forum, Notifications, TAGrading, InstructorUI, SubminiPolls, HelpQueue, CourseMaterials, Plagiarism, RainbowGrades, Calendar, System, Developer, API. Got Error.
   - Too long a message, expected at most 40 characters, got 56 characters.`);
       });
     });
