@@ -81,6 +81,7 @@ const allowedModules = [
     "CourseMaterials",
     "Plagiarism",
     "RainbowGrades",
+    "Calendar",
     "System",
     "Developer",
     "API",
