@@ -108,7 +108,12 @@ function checkTitle(fullTitle) {
         throw new Error("Unexpected space between <TYPE> and <MODULE> (e.g. [<TYPE>: <MODULE>]), there should be no space (e.g. [<TYPE>:<MODULE>]).");
     }
     if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
-        throw new Error(`Invalid title format, must start with ${hasSysadminTag ? sysadminTag : ""}${hasSecurityTag ? securityTag : ""}[<TYPE>:<MODULE>] and have space before description.`);
+        throw new Error(
+          `Invalid PR title format. Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT>\n` +
+            `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
+            `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
+            `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`
+        );
     }
     const errors = [];
     const [_, type, module, message,] = /^\[([a-zA-Z0-9\\/]+)(?::([a-zA-Z0-9\\/]+))?\] (.*)/.exec(title);
@@ -6086,7 +6091,7 @@ module.exports = require("zlib");;
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -6099,7 +6104,7 @@ module.exports = require("zlib");;
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		var threw = true;
 /******/ 		try {
@@ -6108,14 +6113,14 @@ module.exports = require("zlib");;
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat */
-/******/ 	
+/******/
 /******/ 	__nccwpck_require__.ab = __dirname + "/";/************************************************************************/
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
