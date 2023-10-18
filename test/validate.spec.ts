@@ -59,14 +59,16 @@ describe("validate", () => {
         [
           [
             "[Refactor:RainbowGrades]",
-            `Invalid PR title format. Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT>\n` +
+            `Invalid PR title format. ` +
+              `Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
               `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
               `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
               `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
           ],
           [
             "[SYSADMINACTION][Refactor:Autograding] xxxx",
-            `Invalid PR title format. Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT>\n` +
+            `Invalid PR title format. ` +
+              `Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
               `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
               `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
               `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
@@ -77,7 +79,8 @@ describe("validate", () => {
           ],
           [
             "[SYSADMIN ACTION][Refactor:Autograding]foo",
-            `Invalid PR title format. Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT>\n` +
+            `Invalid PR title format. ` +
+              `Your title must start with [SYSADMIN ACTION] and should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
               `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
               `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
               `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
@@ -88,7 +91,8 @@ describe("validate", () => {
           ],
           [
             "[SECURITY][Refactor:Autograding]foo",
-            `Invalid PR title format. Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT>\n` +
+            `Invalid PR title format. ` +
+              `Your title must start with [SECURITY] and should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
               `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
               `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
               `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
@@ -99,14 +103,16 @@ describe("validate", () => {
           ],
           [
             "[SYSADMIN ACTION][SECURITY][Refactor:Autograding]foo",
-            `Invalid PR title format. Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT>\n` +
+            `Invalid PR title format. ` +
+              `Your title must start with [SYSADMIN ACTION] and should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
               `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
               `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
               `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
           ],
           [
             "[SECURITY][SYSADMIN ACTION][Refactor:Autograding] foo",
-            `Invalid PR title format. Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT>\n` +
+            `Invalid PR title format. ` +
+              `Your title must start with [SECURITY] and should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
               `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
               `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
               `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,

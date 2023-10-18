@@ -109,10 +109,14 @@ function checkTitle(fullTitle) {
     }
     if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
         throw new Error(
-          `Invalid PR title format. Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT>\n` +
-            `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
-            `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
-            `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`
+          `Invalid PR title format. ${
+            hasSysadminTag ? `Your title must start with ${sysadminTag} and` :
+              hasSecurityTag ? `Your title must start with ${securityTag} and` :
+                "Your title"
+          } should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
+          `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
+          `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
+          `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`
         );
     }
     const errors = [];
