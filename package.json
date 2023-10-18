@@ -1,6 +1,6 @@
 {
   "name": "action-pr-title",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "GitHub action to validate PR titles meet our guidelines",
   "main": "lib/index.js",
   "scripts": {
