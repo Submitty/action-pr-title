@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { checkTitle } from "../src/validate";
+import { allowedModules, allowedTypes, checkTitle } from "../src/validate";
 
 describe("validate", () => {
   describe("checkTitle", () => {
@@ -30,11 +30,19 @@ describe("validate", () => {
         [
           [
             "[Refactor:RainbowGrades]",
-            "Invalid title format, must start with [<TYPE>:<MODULE>] and have space before description.",
+            `Invalid PR title format. ` +
+              `Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
+              `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
+              `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
+              `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
           ],
           [
             "[SYSADMINACTION][Refactor:Autograding] xxxx",
-            "Invalid title format, must start with [<TYPE>:<MODULE>] and have space before description.",
+            `Invalid PR title format. ` +
+              `Your title should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
+              `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
+              `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
+              `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
           ],
           [
             "[SYSADMIN ACTION] [Refactor:Submission] test",
@@ -42,7 +50,11 @@ describe("validate", () => {
           ],
           [
             "[SYSADMIN ACTION][Refactor:Autograding]foo",
-            "Invalid title format, must start with [SYSADMIN ACTION][<TYPE>:<MODULE>] and have space before description.",
+            `Invalid PR title format. ` +
+              `Your title must start with [SYSADMIN ACTION] and should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
+              `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
+              `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
+              `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
           ],
           [
             "[SECURITY] [Refactor:Submission] test",
@@ -50,7 +62,11 @@ describe("validate", () => {
           ],
           [
             "[SECURITY][Refactor:Autograding]foo",
-            "Invalid title format, must start with [SECURITY][<TYPE>:<MODULE>] and have space before description.",
+            `Invalid PR title format. ` +
+              `Your title must start with [SECURITY] and should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
+              `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
+              `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
+              `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
           ],
           [
             "[Bugfix: Submission] xxx",
@@ -58,11 +74,19 @@ describe("validate", () => {
           ],
           [
             "[SYSADMIN ACTION][SECURITY][Refactor:Autograding]foo",
-            "Invalid title format, must start with [SYSADMIN ACTION][SECURITY][<TYPE>:<MODULE>] and have space before description.",
+            `Invalid PR title format. ` +
+              `Your title must start with [SYSADMIN ACTION] and should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
+              `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
+              `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
+              `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
           ],
           [
             "[SECURITY][SYSADMIN ACTION][Refactor:Autograding] foo",
-            "Invalid title format, must start with [SECURITY][<TYPE>:<MODULE>] and have space before description.",
+            `Invalid PR title format. ` +
+              `Your title must start with [SECURITY] and should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
+              `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
+              `And <MODULE> is one of: ${allowedModules.join(", ")}\n` +
+              `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`,
           ],
         ].forEach(([value, expectedException]) => {
           it(`checkTitle should throw: ${value}`, () => {
