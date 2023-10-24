@@ -1,6 +1,6 @@
 {
   "name": "action-pr-title",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "GitHub action to validate PR titles meet our guidelines",
   "main": "lib/index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.15",
     "@types/mocha": "^8.2.2",
-    "@types/node": "^12",
+    "@types/node": "^20.8.7",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vercel/ncc": "^0.27.0",

@@ -28,7 +28,7 @@ jobs:
 
 ### Requirements:
 
-* NodeJS 12+
+* NodeJS 20+
 
 ### Setup
 
