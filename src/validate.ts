@@ -1,6 +1,6 @@
 const sysadminTag = "[SYSADMIN ACTION]";
 const securityTag = "[SECURITY]";
-const allowedTypes = [
+export const allowedTypes = [
   "Bugfix",
   "Feature",
   "Refactor",
@@ -11,7 +11,7 @@ const allowedTypes = [
   "Dependency",
   "DevDependency",
 ];
-const allowedModules = [
+export const allowedModules = [
   "Submission",
   "Autograding",
   "Forum",

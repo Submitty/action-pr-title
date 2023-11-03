@@ -1,34 +1,5 @@
 import { expect } from "chai";
-import { checkTitle } from "../src/validate";
-
-const allowedTypes = [
-  "Bugfix",
-  "Feature",
-  "Refactor",
-  "Testing",
-  "Documentation",
-  "VPAT",
-  "UI/UX",
-  "Dependency",
-  "DevDependency",
-];
-const allowedModules = [
-  "Submission",
-  "Autograding",
-  "Forum",
-  "Notifications",
-  "TAGrading",
-  "InstructorUI",
-  "SubminiPolls",
-  "HelpQueue",
-  "CourseMaterials",
-  "Plagiarism",
-  "RainbowGrades",
-  "Calendar",
-  "System",
-  "Developer",
-  "API",
-];
+import { allowedModules, allowedTypes, checkTitle } from "../src/validate";
 
 describe("validate", () => {
   describe("checkTitle", () => {
