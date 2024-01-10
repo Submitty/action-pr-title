@@ -29,12 +29,23 @@ export const allowedModules = [
   "API",
 ];
 
+
+
 export function checkTitle(fullTitle: string): true {
   let title = fullTitle;
-  let hasSysadminTag = false;
+  let startsWithCapitalLetter=false;
   let hasSecurityTag = false;
-  if (title.startsWith(sysadminTag)) {
-    hasSysadminTag = true;
+  function startsWithCapital(title: string): boolean {
+    // Use a regular expression to check if the first character is an uppercase letter
+    const regex: RegExp = /^[A-Z]/;
+    
+    // Test the string against the regular expression
+    return regex.test(title);
+  }
+    
+    // Test the string against the regular expression
+  if (startsWithCapital(title)) {
+    startsWithCapitalLetter = true;
     title = title.substring(sysadminTag.length);
     if (title.startsWith(" ")) {
       throw new Error(`There should not be a space following ${sysadminTag}.`);
@@ -55,13 +66,11 @@ export function checkTitle(fullTitle: string): true {
     );
   }
 
-  if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
+  if (!/^[A-Z\[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\]/.test(title)) {
     throw new Error(
       `Invalid PR title format. ${
-        hasSysadminTag
-          ? `Your title must start with ${sysadminTag} and`
-          : hasSecurityTag
-          ? `Your title must start with ${securityTag} and`
+        startsWithCapitalLetter
+          ? "Your title must start with capital letter and"
           : "Your title"
       } should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
         `Where <TYPE> is one of: ${allowedTypes.join(", ")}\n` +
@@ -77,9 +86,7 @@ export function checkTitle(fullTitle: string): true {
     type,
     module,
     message,
-  ] = /^\[([a-zA-Z0-9\\/]+)(?::([a-zA-Z0-9\\/]+))?\] (.*)/.exec(
-    title
-  ) as RegExpMatchArray;
+  ] = /^\[([A-Z][a-zA-Z0-9\\/]+)(?::([a-zA-Z0-9\\/]+))?\] (.*)/.exec(title) as RegExpMatchArray;
 
   const isDependency = type === "Dependency" || type === "DevDependency";
   const minMessageLength = 2;

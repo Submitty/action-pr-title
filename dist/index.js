@@ -103,21 +103,19 @@ function checkTitle(fullTitle) {
             throw new Error(`There should not be a space following ${securityTag}.`);
         }
     }
-    if (/^\[[a-zA-Z0-9\\/]+:[ ]+[a-zA-Z0-9\\/]+?\]/.test(title)) {
+    if (!/^[A-Z\[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
         throw new Error("Unexpected space between <TYPE> and <MODULE> (e.g. [<TYPE>: <MODULE>]), there should be no space (e.g. [<TYPE>:<MODULE>]).");
     }
-    if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
-        throw new Error(`Invalid PR title format. ${hasSysadminTag
-            ? `Your title must start with ${sysadminTag} and`
-            : hasSecurityTag
-                ? `Your title must start with ${securityTag} and`
+    if (!/^[A-Z\[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
+        throw new Error(`Invalid PR title format. 
+            ? "Your title must start with a capital letter and"
                 : "Your title"} should adhere to the format: [<TYPE>:<MODULE>] <SUBJECT> followed by a space before the description.\n` +
             `Where <TYPE> is one of: ${exports.allowedTypes.join(", ")}\n` +
             `And <MODULE> is one of: ${exports.allowedModules.join(", ")}\n` +
             `For detailed guidelines, refer to https://submitty.org/developer/getting_started/make_a_pull_request.`);
     }
     const errors = [];
-    const [_, type, module, message,] = /^\[([a-zA-Z0-9\\/]+)(?::([a-zA-Z0-9\\/]+))?\] (.*)/.exec(title);
+    const [_, type, module, message,] = /^\[([A-Z][a-zA-Z0-9\\/]+)(?::([a-zA-Z0-9\\/]+))?\] (.*)/.exec(title);
     const isDependency = type === "Dependency" || type === "DevDependency";
     const minMessageLength = 2;
     const maxMessageLength = isDependency ? 70 : 40;
