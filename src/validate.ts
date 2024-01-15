@@ -29,32 +29,42 @@ export const allowedModules = [
   "API",
 ];
 
+// Function to check and validate the pull request title
 export function checkTitle(fullTitle: string): true {
   let title = fullTitle;
   let hasSysadminTag = false;
   let hasSecurityTag = false;
+
+  // Check for Sysadmin tag at the beginning of the title
   if (title.startsWith(sysadminTag)) {
     hasSysadminTag = true;
     title = title.substring(sysadminTag.length);
+
+    // Check for space after Sysadmin tag
     if (title.startsWith(" ")) {
       throw new Error(`There should not be a space following ${sysadminTag}.`);
     }
   }
 
+  // Check for Security tag at the beginning of the title
   if (title.startsWith(securityTag)) {
     hasSecurityTag = true;
     title = title.substring(securityTag.length);
+
+    // Check for space after Security tag
     if (title.startsWith(" ")) {
       throw new Error(`There should not be a space following ${securityTag}.`);
     }
   }
 
+  // Check for unexpected space between <TYPE> and <MODULE>
   if (/^\[[a-zA-Z0-9\\/]+:[ ]+[a-zA-Z0-9\\/]+?\]/.test(title)) {
     throw new Error(
       "Unexpected space between <TYPE> and <MODULE> (e.g. [<TYPE>: <MODULE>]), there should be no space (e.g. [<TYPE>:<MODULE>])."
     );
   }
 
+  // Check for the valid PR title format
   if (!/^\[[a-zA-Z0-9\\/]+(?::[a-zA-Z0-9\\/]+)?\] /.test(title)) {
     throw new Error(
       `Invalid PR title format. ${
@@ -72,6 +82,7 @@ export function checkTitle(fullTitle: string): true {
 
   const errors = [];
 
+  // Destructure matched groups from regular expression
   const [
     _,
     type,
@@ -81,23 +92,24 @@ export function checkTitle(fullTitle: string): true {
     title
   ) as RegExpMatchArray;
 
+  // Validate type and module
   const isDependency = type === "Dependency" || type === "DevDependency";
   const minMessageLength = 2;
   const maxMessageLength = isDependency ? 70 : 40;
 
+  // Check if type is valid
   if (!allowedTypes.includes(type)) {
     errors.push(
       `Invalid type, expected one of ${allowedTypes.join(", ")}. Got ${type}.`
     );
   }
 
-  if (isDependency) {
-    if (module !== undefined) {
-      errors.push(
-        `No allowed module for ${type}, expected [${type}]. Got [${type}:${module}].`
-      );
-    }
-  } else if (!allowedModules.includes(module)) {
+  // Check module for Dependency types
+  if (isDependency && module !== undefined) {
+    errors.push(
+      `No allowed module for ${type}, expected [${type}]. Got [${type}:${module}].`
+    );
+  } else if (!isDependency && !allowedModules.includes(module)) {
     errors.push(
       `Invalid module, expected one of ${allowedModules.join(
         ", "
@@ -105,6 +117,7 @@ export function checkTitle(fullTitle: string): true {
     );
   }
 
+  // Check message length
   if (message.length < minMessageLength) {
     errors.push(
       `Too short a message, expected at least ${minMessageLength} characters, got ${message.length} characters.`
@@ -116,6 +129,7 @@ export function checkTitle(fullTitle: string): true {
     );
   }
 
+  // Throw errors if any
   if (errors.length > 0) {
     throw new Error(
       `Errors detected in title:\n${errors
