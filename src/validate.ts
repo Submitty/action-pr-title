@@ -126,3 +126,33 @@ export function checkTitle(fullTitle: string): true {
 
   return true;
 }
+
+export function formatPRTitle(
+  type: string,
+  module: string,
+  subject: string
+): string {
+  if (!allowedTypes.includes(type)) {
+    throw new Error(
+      `Invalid type, expected one of ${allowedTypes.join(", ")}. Got ${type}.`
+    );
+  }
+
+  if (!allowedModules.includes(module)) {
+    throw new Error(
+      `Invalid module, expected one of ${allowedModules.join(
+        ", "
+      )}. Got ${module}.`
+    );
+  }
+
+  const prTitle = `[${type}:${module}] ${subject}`;
+  const maxLegnth = 50;
+  if (prTitle.length > maxLegnth) {
+    throw new Error(
+      `PR title exceeds the maximum allowed length of ${maxLegnth} characters.`
+    );
+  }
+
+  return prTitle;
+}

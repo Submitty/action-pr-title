@@ -1,5 +1,10 @@
 import { expect } from "chai";
-import { allowedModules, allowedTypes, checkTitle } from "../src/validate";
+import {
+  allowedModules,
+  allowedTypes,
+  checkTitle,
+  formatPRTitle,
+} from "../src/validate";
 
 describe("validate", () => {
   describe("checkTitle", () => {
@@ -144,6 +149,18 @@ describe("validate", () => {
   - Invalid module, expected one of Submission, Autograding, Forum, Notifications, TAGrading, InstructorUI, SubminiPolls, HelpQueue, CourseMaterials, Plagiarism, RainbowGrades, Calendar, System, Developer, API. Got Error.
   - Too long a message, expected at most 40 characters, got 56 characters.`);
       });
+    });
+  });
+
+  describe("formatPRTitle", () => {
+    it("should format PR Title correctly", () => {
+      const type = "Feature";
+      const module = "Submission";
+      const subject = "Add support for file uploads";
+
+      const formattedTitle = formatPRTitle(type, module, subject);
+      const expectedTitle = `[${type}:${module}] ${subject}`;
+      expect(formattedTitle).to.equal(expectedTitle);
     });
   });
 });
