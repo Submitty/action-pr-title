@@ -72,6 +72,7 @@ exports.allowedModules = [
     "Submission",
     "Autograding",
     "Forum",
+    "LiveChat",
     "Notifications",
     "TAGrading",
     "InstructorUI",

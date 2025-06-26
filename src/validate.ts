@@ -15,6 +15,7 @@ export const allowedModules = [
   "Submission",
   "Autograding",
   "Forum",
+  "LiveChat",
   "Notifications",
   "TAGrading",
   "InstructorUI",
