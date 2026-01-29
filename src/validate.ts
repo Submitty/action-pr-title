@@ -27,6 +27,7 @@ export const allowedModules = [
   "System",
   "Developer",
   "API",
+  "Testing",
 ];
 
 export function checkTitle(fullTitle: string): true {
