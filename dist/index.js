@@ -84,6 +84,7 @@ exports.allowedModules = [
     "System",
     "Developer",
     "API",
+    "Testing",
 ];
 function checkTitle(fullTitle) {
     let title = fullTitle;
